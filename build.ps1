@@ -1,4 +1,4 @@
-﻿# Spoken 完整构建脚本（PowerShell）
+﻿﻿# Spoken 完整构建脚本（PowerShell）
 # 流程：生成图标 → PyInstaller 打包 → Inno Setup 制作安装包
 
 $ErrorActionPreference = "Stop"
@@ -98,7 +98,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-$exePath = "dist\Spoken.exe"
+$exePath = "dist\Spoken\Spoken.exe"
 if (-not (Test-Path $exePath)) {
     Write-Host "[ERROR] 打包产物未找到: $exePath" -ForegroundColor Red
     exit 1

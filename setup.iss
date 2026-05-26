@@ -6,7 +6,7 @@
 ;
 ; Requirements:
 ;   - Inno Setup 6.x
-;   - PyInstaller output: dist\Spoken.exe
+;   - PyInstaller output: dist\Spoken\ (onedir mode)
 
 #define MyAppName "Spoken"
 #define MyAppVersion "1.6.0"
@@ -27,7 +27,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 
 OutputBaseFilename=Spoken-Setup-{#MyAppVersion}
-OutputDir={#SourcePath}\build\installer
+OutputDir=C:\Users\linchen\Desktop\Spoken-Build
 SetupIconFile=spoken.ico
 
 Compression=lzma2/max
@@ -46,11 +46,12 @@ DisableProgramGroupPage=yes
 DisableWelcomePage=no
 
 [Languages]
-Name: "chinesesimplified"; MessagesFile: "ChineseSimplified.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+; onedir 模式：拷贝整个 dist\Spoken\ 目录
+Source: "dist\Spoken\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\Spoken\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "spoken.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]

@@ -19,13 +19,16 @@ Spoken PyInstaller 打包配置
 from PyInstaller.building.build_main import Analysis, PYZ, EXE, COLLECT
 import os
 
-# 项目根目录（ spoken.spec 的父目录）
-project_root = os.path.dirname(os.path.abspath(SPECPATH))
+# spec 文件所在目录（d:\spoken\spoken）
+spec_dir = os.path.abspath(SPECPATH)
+# Python 包搜索根（d:\spoken），run.py 用 `from spoken.__main__ import main`，
+# 所以 `spoken` 包的父目录才是正确的 pathex
+project_root = os.path.dirname(spec_dir)
 
 # 数据文件：配置、提示音、图标等
 datas = [
     # 默认配置文件（打包后位于 _MEIPASS/spoken/config/defaults.toml）
-    (os.path.join(project_root, "config", "defaults.toml"), "spoken/config"),
+    (os.path.join(spec_dir, "config", "defaults.toml"), "spoken/config"),
 ]
 
 # 隐藏导入：动态导入的模块
@@ -108,7 +111,7 @@ excludes = [
 ]
 
 a = Analysis(
-    [os.path.join(project_root, "run.py")],
+    [os.path.join(spec_dir, "run.py")],
     pathex=[project_root],
     binaries=[],
     datas=datas,
